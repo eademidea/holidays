@@ -1,8 +1,16 @@
 package holidays.model;
 
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.LocalDate;
+
+import static holidays.model.Mounths.getMounthNumber;
+import static org.apache.commons.lang3.StringUtils.stripAccents;
+
 /**
  * @author Conrado Jardim de Oliveira
- * @version 0.0.2
+ * @version 0.0.1
  */
 public class Holiday {
 
@@ -11,6 +19,8 @@ public class Holiday {
     private String dayWeek;
 
     private String holiday;
+
+    private String month;
 
     public Holiday(String date, String dayWeek, String holiday) {
         this.date = date;
@@ -22,25 +32,16 @@ public class Holiday {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getDayWeek() {
         return dayWeek;
     }
 
-    public void setDayWeek(String dayWeek) {
-        this.dayWeek = dayWeek;
-    }
 
     public String getHoliday() {
         return holiday;
     }
 
-    public void setHoliday(String holiday) {
-        this.holiday = holiday;
-    }
 
     @Override
     public String toString() {
@@ -52,6 +53,14 @@ public class Holiday {
     }
 
     public String[] getHolidayObject() {
-        return new String[]{getDate(), getDayWeek(), getHoliday()};
+        return new String[]{getFormatedDate(), getDate(), getDayWeek(), getHoliday()};
+    }
+
+    public String getMonth() {
+        return date != null ? getMounthNumber(stripAccents(date.split(" ")[2]).trim()).toString() : "inexistente";
+    }
+
+    public String getFormatedDate() {
+        return LocalDate.now().getYear() + "-" + getMonth() + "-" + date.split(" ")[0];
     }
 }

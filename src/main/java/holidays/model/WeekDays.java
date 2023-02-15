@@ -2,10 +2,11 @@ package holidays.model;
 
 import static java.util.Arrays.asList;
 
+
 /**
  * @author Conrado Jardim de Oliveira
- * @version 0.0.2
- * */
+ * @version 0.0.1
+ */
 public enum WeekDays {
 
     MONDAY("segunda-feira")

@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
+
 /**
  * @author Conrado Jardim de Oliveira
- * @version 0.0.2
+ * @version 0.0.1
  */
 public class HolidayCrowler {
 

@@ -12,7 +12,7 @@ import static holidays.HolidayCrowler.getNationalHolidays;
 
 /**
  * @author Conrado Jardim de Oliveira
- * @version 0.0.2
+ * @version 0.0.1
  */
 public class HolidayCrowlerTest {
 

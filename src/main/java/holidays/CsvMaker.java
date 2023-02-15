@@ -9,6 +9,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * @author Conrado Jardim de Oliveira
+ * @version 0.0.1
+ */
 public class CsvMaker {
 
     public void toCsv() throws IOException, InterruptedException {
@@ -18,6 +23,7 @@ public class CsvMaker {
         List<String[]> holidays = new ArrayList<>();
 
         nationalHolidays.forEach(holiday -> {
+            System.out.println(holiday.getMonth());
             holidays.add(holiday.getHolidayObject());
         });
 
