@@ -1,28 +1,17 @@
-package holidays;
+package holidays.crawler;
 
 import holidays.model.Holiday;
 import holidays.model.WeekDays;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+public class NationalHolidays extends HolidaysUtils {
 
-
-/**
- * @author Conrado Jardim de Oliveira
- * @version 0.0.1
- */
-public class HolidayCrowler {
-
-    public static final String FEBRABAN_URL = "https://feriadosbancarios.febraban.org.br/";
     private static Logger log = Logger.getLogger(HolidayCrowler.class.getName());
-
-    static WebDriver driver = new ChromeDriver();
 
     public static List<Holiday> getNationalHolidays() throws InterruptedException {
         List<Holiday> holidays = new ArrayList<>();
@@ -42,7 +31,4 @@ public class HolidayCrowler {
         return holidays;
     }
 
-    private static String[] getWeekDay(WebElement element) {
-        return element.getAttribute("innerText").split("\t");
-    }
 }
