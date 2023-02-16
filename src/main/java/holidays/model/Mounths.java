@@ -2,7 +2,12 @@ package holidays.model;
 
 import java.util.Arrays;
 
+/**
+ * @author Conrado Jardim de Oliveira
+ * @version 0.0.1
+ */
 public enum Mounths {
+
     JANEIRO(1, "janeiro")
     ,FEVEREIRO(2, "fevereiro")
     ,MARCO(3, "marco")

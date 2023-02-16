@@ -1,6 +1,7 @@
 package holidays.crawler;
 
-import holidays.model.Holiday;
+import holidays.model.MunicipalHoliday;
+import holidays.model.NationalHoliday;
 
 import java.util.List;
 
@@ -11,11 +12,11 @@ import java.util.List;
  */
 public class HolidayCrowler {
 
-    public static List<Holiday> getNationalHolidays() throws InterruptedException {
+    public static List<NationalHoliday> getNationalHolidays() throws InterruptedException {
         return NationalHolidays.getNationalHolidays();
     }
 
-    public static List<Holiday> getMunicipalHolidays() throws InterruptedException {
+    public static List<MunicipalHoliday> getMunicipalHolidays() throws InterruptedException {
         return MunicipalHolidays.getMunicipalHolidays();
     }
 

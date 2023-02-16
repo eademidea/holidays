@@ -1,8 +1,6 @@
 package holidays.model;
 
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.LocalDate;
 
 import static holidays.model.Mounths.getMounthNumber;
@@ -12,7 +10,7 @@ import static org.apache.commons.lang3.StringUtils.stripAccents;
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
  */
-public class Holiday {
+public class NationalHoliday {
 
     private String date;
 
@@ -22,7 +20,7 @@ public class Holiday {
 
     private String month;
 
-    public Holiday(String date, String dayWeek, String holiday) {
+    public NationalHoliday(String date, String dayWeek, String holiday) {
         this.date = date;
         this.dayWeek = dayWeek;
         this.holiday = holiday;

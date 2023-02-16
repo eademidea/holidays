@@ -1,7 +1,8 @@
 package holidays;
 
 import holidays.csv.CsvMaker;
-import holidays.model.Holiday;
+import holidays.model.MunicipalHoliday;
+import holidays.model.NationalHoliday;
 import holidays.model.WeekDays;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,20 +27,19 @@ public class HolidayCrowlerTest {
 
     @Test
     public void testNationalHolidays() throws InterruptedException {
-        List<Holiday> holidayList = getNationalHolidays();
-        for (Holiday holiday : holidayList) {
+        List<NationalHoliday> holidayList = getNationalHolidays();
+        for (NationalHoliday holiday : holidayList) {
             System.out.println(holiday.toString());
         }
     }
 
     @Test
     public void testMunicipalHolidays() throws InterruptedException {
-        List<Holiday> holidayList = getMunicipalHolidays();
-        for (Holiday holiday : holidayList) {
+        List<MunicipalHoliday> holidayList = getMunicipalHolidays();
+        for (MunicipalHoliday holiday : holidayList) {
             System.out.println(holiday.toString());
         }
     }
-
 
     @Test
     public void test() {
