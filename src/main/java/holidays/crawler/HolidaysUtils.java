@@ -27,6 +27,7 @@ public class HolidaysUtils {
     }
 
     public static List<NationalHoliday> getHolidaysList() throws InterruptedException {
+        driver.get(FEBRABAN_URL);
         List<NationalHoliday> holidays = new ArrayList<>();
         new Thread().sleep(1000);
         List<WebElement> weekDays = driver.findElements(By.tagName("tr"));
@@ -39,6 +40,7 @@ public class HolidaysUtils {
         if (holidays.isEmpty()) {
             log.info("Lista de feriados indisponível no momento.");
         }
+        driver.close();
         return holidays;
     }
 

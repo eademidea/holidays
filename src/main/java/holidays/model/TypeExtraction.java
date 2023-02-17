@@ -2,10 +2,11 @@ package holidays.model;
 
 
 import holidays.crawler.NationalHolidays;
-import holidays.extract.*;
 
-import static holidays.extract.All.extractAll;
-import static holidays.extract.AllUf.extractAllUf;
+import java.util.ArrayList;
+import java.util.List;
+
+import static holidays.csv.CsvMaker.toCsv;
 
 /**
  * @author Conrado Jardim de Oliveira
@@ -17,28 +18,57 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(String val) {
             try {
-                var holidays = NationalHolidays.getHolidaysList();
-                National.extractNational();
+                var nationalHolidays = NationalHolidays.getHolidaysList();
+                List<String[]> holidays = new ArrayList<>();
+                nationalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "feriados-nacionais.csv");
             } catch (Exception e) {
 
             }
-
-
         }
     }, ESPECIFIC_UF(2, "UF Específica") {
         @Override
         public void extract(String val) {
-            EspecificUf.extractEspecificUf(val);
+            try {
+                var nationalHolidays = NationalHolidays.getHolidaysList();
+                List<String[]> holidays = new ArrayList<>();
+                nationalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "feriados-nacionais.csv");
+            } catch (Exception e) {
+
+            }
         }
     }, ALL_UF(3, "Todas UF's") {
         @Override
         public void extract(String val) {
-            extractAllUf();
+            try {
+                var nationalHolidays = NationalHolidays.getHolidaysList();
+                List<String[]> holidays = new ArrayList<>();
+                nationalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "feriados-nacionais.csv");
+            } catch (Exception e) {
+
+            }
         }
     }, ALL(4, "Todas") {
         @Override
         public void extract(String val) {
-            extractAll();
+            try {
+                var nationalHolidays = NationalHolidays.getHolidaysList();
+                List<String[]> holidays = new ArrayList<>();
+                nationalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "feriados-nacionais.csv");
+            } catch (Exception e) {
+
+            }
         }
     };
 

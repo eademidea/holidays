@@ -17,25 +17,14 @@ import java.util.List;
  */
 public class CsvMaker {
 
-    public void toCsv() throws IOException, InterruptedException {
-
-        var nationalHolidays = HolidayCrowler.getNationalHolidays();
-
-        List<String[]> holidays = new ArrayList<>();
-
-        nationalHolidays.forEach(holiday -> {
-            System.out.println(holiday.getMonth());
-            holidays.add(holiday.getHolidayObject());
-        });
-
-        Writer writer = Files.newBufferedWriter(Paths.get("feriados-nacionais.csv"));
+    public static void toCsv(List<String[]> holidays, String directory) throws IOException {
+        Writer writer = Files.newBufferedWriter(Paths.get(directory));
         CSVWriter csvWriter = new CSVWriter(writer);
 
         csvWriter.writeAll(holidays);
 
         csvWriter.flush();
         writer.close();
-
     }
 
 }

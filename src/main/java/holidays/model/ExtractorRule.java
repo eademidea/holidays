@@ -1,4 +1,4 @@
-package holidays.extract;
+package holidays.model;
 
 public interface ExtractorRule {
 
