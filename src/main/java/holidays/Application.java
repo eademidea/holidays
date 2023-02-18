@@ -1,6 +1,6 @@
 package holidays;
 
-import holidays.model.TypeExtraction;
+import holidays.model.extraction.TypeExtraction;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -62,7 +62,7 @@ public class Application {
                         all.setSelected(false);
                         allUf.setSelected(false);
                         national.setSelected(false);
-                        var entry = JOptionPane.showInputDialog("Informe o município que deseja extrair: ");
+                        var entry = JOptionPane.showInputDialog("Informe o UF que deseja extrair: ");
                         if (entry != null) {
                             TypeExtraction.ESPECIFIC_UF.extract(entry);
                         }

@@ -4,7 +4,9 @@ import holidays.model.MunicipalHoliday;
 import holidays.model.NationalHoliday;
 import holidays.model.WeekDays;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -15,9 +17,20 @@ import java.util.logging.Logger;
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
  */
-public class MunicipalHolidays extends HolidaysUtils {
+public class MunicipalHolidays  {
 
-    private static Logger log = Logger.getLogger(HolidayCrowler.class.getName());
+    private static final String FEBRABAN_URL = "https://feriadosbancarios.febraban.org.br/";
+
+    private static Logger log = Logger.getLogger(MunicipalHolidays.class.getName());
+
+    static WebDriver driver = new ChromeDriver();
+
+    public static String[] getWeekDay(WebElement element) {
+        return element.getAttribute("innerText").split("\t");
+    }
+
+
+
     public static List<MunicipalHoliday> getMunicipalHolidays() throws InterruptedException {
         List<MunicipalHoliday> holidays = new ArrayList<>();
         driver.get(FEBRABAN_URL.concat("Municipais/Listar"));

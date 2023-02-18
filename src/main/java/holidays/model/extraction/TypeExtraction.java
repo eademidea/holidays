@@ -1,6 +1,7 @@
-package holidays.model;
+package holidays.model.extraction;
 
 
+import holidays.crawler.MunicipalHolidays;
 import holidays.crawler.NationalHolidays;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(String val) {
             try {
-                var nationalHolidays = NationalHolidays.getHolidaysList();
+                var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
                 nationalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
@@ -32,12 +33,12 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(String val) {
             try {
-                var nationalHolidays = NationalHolidays.getHolidaysList();
+                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays();
                 List<String[]> holidays = new ArrayList<>();
-                nationalHolidays.forEach(holiday -> {
+                municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "feriados-nacionais.csv");
+                toCsv(holidays, "municipal-holidays.csv");
             } catch (Exception e) {
 
             }
@@ -46,7 +47,7 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(String val) {
             try {
-                var nationalHolidays = NationalHolidays.getHolidaysList();
+                var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
                 nationalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
@@ -60,7 +61,7 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(String val) {
             try {
-                var nationalHolidays = NationalHolidays.getHolidaysList();
+                var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
                 nationalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
