@@ -1,5 +1,13 @@
 package holidays.model;
 
+import java.util.Arrays;
+
+import static org.apache.commons.lang3.StringUtils.stripAccents;
+
+/**
+ * @author Conrado Jardim de Oliveira
+ * @version 0.0.1
+ */
 public enum UF {
 
     RONDONIA(11,	"Rondônia",	"RO")
@@ -29,6 +37,36 @@ public enum UF {
     ,MATO_GROSSO(51,	"Mato Grosso",	"MT")
     ,GOIAS(52,	"Goiás",	"GO")
     ,DISTRITO_FEDERAL(53,	"Distrito Federal",	"DF");
+
+    public static String getFormatedUf(String uf) {
+        return stripAccents(uf).toUpperCase().trim();
+    }
+
+    public static UF getState(String uf) {
+        if (uf != null) {
+            var ufs= Arrays.asList(UF.values());
+            for (UF estado:ufs) {
+                if (estado.getSigla().equals(getFormatedUf(uf))) {
+                    return estado;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean ufExists(String uf) {
+        if (uf == null) {
+            return false;
+        }
+        var ufs= Arrays.asList(UF.values());
+        for (UF estado:ufs) {
+            if (estado.getSigla().equals(getFormatedUf(uf))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     UF(Integer codUf, String label, String sigla) {

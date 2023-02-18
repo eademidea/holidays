@@ -1,10 +1,16 @@
 package holidays;
 
+import holidays.model.UF;
 import holidays.model.extraction.TypeExtraction;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static holidays.model.UF.getFormatedUf;
+import static holidays.model.UF.ufExists;
+import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 /**
  * @author Conrado Jardim de Oliveira
@@ -62,14 +68,17 @@ public class Application {
                         all.setSelected(false);
                         allUf.setSelected(false);
                         national.setSelected(false);
-                        var entry = JOptionPane.showInputDialog("Informe o UF que deseja extrair: ");
-                        if (entry != null) {
-                            TypeExtraction.ESPECIFIC_UF.extract(entry);
+                        var uf = JOptionPane.showInputDialog("Informe o UF que deseja extrair (Exemplo: MG): ");
+                        if (ufExists(uf)) {
+                            TypeExtraction.ESPECIFIC_UF.extract(getFormatedUf(uf));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "UF Informada não existe...");
                         }
                     }
                 }
         );
     }
+
 
     private static void actionToExtractAllUf() {
         allUf.addActionListener(
@@ -104,7 +113,6 @@ public class Application {
                 }
         );
     }
-
 
     /**
      * Inicializa todos os componentes e comportamentos da tela...
@@ -151,6 +159,6 @@ public class Application {
         var response = new JLabel(WELLCOME_MESSAGE);
         response.setBounds(0, 0, 200, 30);
         return response;
-
     }
+
 }

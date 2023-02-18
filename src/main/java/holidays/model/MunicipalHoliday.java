@@ -1,8 +1,6 @@
 package holidays.model;
 
 
-import java.time.LocalDate;
-
 /**
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
@@ -19,11 +17,13 @@ public class MunicipalHoliday {
 
     private String county;
 
+    private String state;
+
     private String holidayType;
 
 
     public String[] getHolidayObject() {
-        return new String[]{getFormatedDate(), getDate(), getDayWeek(), getHoliday()};
+        return new String[]{getState().getLabel(), getUf(), getCounty(), getFormatedDate(), getDayWeek(), getHoliday(), getHolidayType()};
     }
 
 
@@ -32,6 +32,10 @@ public class MunicipalHoliday {
         this.uf = uf;
         this.county = county;
         this.holidayType = holidayType;
+    }
+
+    public UF getState() {
+        return UF.getState(getUf());
     }
 
     public String getDate() {
@@ -74,7 +78,8 @@ public class MunicipalHoliday {
     }
 
     public String getFormatedDate() {
-        return date.split(" ")[0];
+        var formatedDate = date.split(" ")[0].split("/");
+        return formatedDate[2] + "-" + formatedDate[1] + "-" + formatedDate[0];
     }
 
 }

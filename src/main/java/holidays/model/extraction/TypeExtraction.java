@@ -31,9 +31,9 @@ public enum TypeExtraction implements ExtractorRule {
         }
     }, ESPECIFIC_UF(2, "UF Específica") {
         @Override
-        public void extract(String val) {
+        public void extract(String uf) {
             try {
-                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays();
+                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays(uf);
                 List<String[]> holidays = new ArrayList<>();
                 municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
