@@ -1,5 +1,7 @@
 package holidays;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import holidays.model.UF;
 import holidays.model.extraction.TypeExtraction;
 import org.apache.commons.lang3.StringUtils;
@@ -7,6 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 import static holidays.model.UF.getFormatedUf;
 import static holidays.model.UF.ufExists;
@@ -21,14 +29,16 @@ public class Application {
     public static final String VERSION = "Holidays - 0.0.1";
     public static final String WELLCOME_MESSAGE = "Bem vindo ao Holidays.";
     public static final String MESSAGE_OPTIONS = "Selecione uma das opções a seguir.";
-
     private static JRadioButton all = new JRadioButton(TypeExtraction.ALL.getLabel(), false);
     private static JRadioButton allUf = new JRadioButton(TypeExtraction.ALL_UF.getLabel(), false);
     private static JRadioButton especific = new JRadioButton(TypeExtraction.ESPECIFIC_UF.getLabel(), false);
     private static JRadioButton national = new JRadioButton(TypeExtraction.NATIONAL.getLabel(), false);
 
+    private static JRadioButton unity = new JRadioButton(TypeExtraction.UNITY.getLabel(), false);
+
 
     public static void main(String[] args) {
+        actionToExtractUnity();
 
         actionToExtractAll();
 
@@ -43,6 +53,35 @@ public class Application {
 
     }
 
+    private static void actionToExtractUnity() {
+        unity.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        all.setSelected(false);
+                        allUf.setSelected(false);
+                        especific.setSelected(false);
+                        national.setSelected(false);
+                        JFileChooser fileChooser = new JFileChooser();
+                        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                        fileChooser.showOpenDialog(null);
+                        File f = fileChooser.getSelectedFile();
+                        System.out.println(f.getName());
+                        try {
+                            Reader reader = Files.newBufferedReader(Paths.get(f.getPath()));
+                            CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
+                            List<String[]> pessoas = csvReader.readAll();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+//                        if (confirm == 0) {
+//                            TypeExtraction.UNITY.extract(null);
+//                        }
+                    }
+                }
+        );
+    }
+
     private static void actionToExtractNational() {
         national.addActionListener(
                 new ActionListener() {
@@ -51,6 +90,7 @@ public class Application {
                         all.setSelected(false);
                         allUf.setSelected(false);
                         especific.setSelected(false);
+                        unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados nacionais?");
                         if (confirm == 0) {
                             TypeExtraction.NATIONAL.extract(null);
@@ -68,6 +108,7 @@ public class Application {
                         all.setSelected(false);
                         allUf.setSelected(false);
                         national.setSelected(false);
+                        unity.setSelected(false);
                         var uf = JOptionPane.showInputDialog("Informe o UF que deseja extrair (Exemplo: MG): ");
                         if (ufExists(uf)) {
                             TypeExtraction.ESPECIFIC_UF.extract(getFormatedUf(uf));
@@ -88,6 +129,7 @@ public class Application {
                         all.setSelected(false);
                         especific.setSelected(false);
                         national.setSelected(false);
+                        unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados municipais?");
                         if (confirm == 0) {
                             TypeExtraction.ALL_UF.extract(null);
@@ -105,7 +147,9 @@ public class Application {
                         allUf.setSelected(false);
                         especific.setSelected(false);
                         national.setSelected(false);
-                        var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados nacionais e municipais?");
+                        unity.setSelected(false);
+                        var confirm = JOptionPane.showConfirmDialog(null
+                                , "Deseja realmente extrair todos feriados nacionais e municipais?");
                         if (confirm == 0) {
                             TypeExtraction.ALL.extract(null);
                         }
@@ -121,27 +165,28 @@ public class Application {
         JFrame frame = new JFrame(VERSION);
         frame.setSize(700, 500);
         frame.setResizable(false);
-        frame.add(getRadiosButton());
+        frame.add(getPanelRadiosButton());
         frame.add(getJPanelLabelOptions());
         frame.add(getJPanelWellCome());
         frame.setVisible(true);
     }
 
-    private static JPanel getRadiosButton() {
-        JPanel panel4 = new JPanel();
-        panel4.setBounds(100, 250, 500, 30);
-        panel4.add(all);
-        panel4.add(allUf);
-        panel4.add(especific);
-        panel4.add(national);
-        return panel4;
+    private static JPanel getPanelRadiosButton() {
+        JPanel panel = new JPanel();
+        panel.setBounds(50, 250, 600, 30);
+        panel.add(all);
+        panel.add(allUf);
+        panel.add(especific);
+        panel.add(national);
+        panel.add(unity);
+        return panel;
     }
 
     private static JPanel getJPanelLabelOptions() {
-        JPanel panel3 = new JPanel();
-        panel3.setBounds(200, 100, 300, 30);
-        panel3.add(getjLabelOptions());
-        return panel3;
+        JPanel panel = new JPanel();
+        panel.setBounds(200, 100, 300, 30);
+        panel.add(getjLabelOptions());
+        return panel;
     }
 
     private static JPanel getJPanelWellCome() {

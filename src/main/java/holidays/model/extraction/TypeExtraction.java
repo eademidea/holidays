@@ -71,6 +71,20 @@ public enum TypeExtraction implements ExtractorRule {
 
             }
         }
+    }, UNITY(5, "Por Unidade") {
+        @Override
+        public void extract(String val) {
+            try {
+                var nationalHolidays = NationalHolidays.getNationalHolidays();
+                List<String[]> holidays = new ArrayList<>();
+                nationalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "todos-nacionais-por-unidade.csv");
+            } catch (Exception e) {
+
+            }
+        }
     };
 
     public String getLabel() {
