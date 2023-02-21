@@ -17,7 +17,7 @@ public enum TypeExtraction implements ExtractorRule {
 
     NATIONAL(1, "Feriados Nacionais") {
         @Override
-        public void extract(String val) {
+        public void extract(String uf, String county) {
             try {
                 var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
@@ -31,21 +31,21 @@ public enum TypeExtraction implements ExtractorRule {
         }
     }, ESPECIFIC_UF(2, "UF Específica") {
         @Override
-        public void extract(String uf) {
+        public void extract(String uf, String county) {
             try {
-                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays(uf);
+                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays(uf, county);
                 List<String[]> holidays = new ArrayList<>();
                 municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "municipal-holidays.csv");
+                toCsv(holidays, "estado-holidays.csv");
             } catch (Exception e) {
 
             }
         }
     }, ALL_UF(3, "Todas UF's") {
         @Override
-        public void extract(String val) {
+        public void extract(String uf, String county) {
             try {
                 var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
@@ -59,7 +59,7 @@ public enum TypeExtraction implements ExtractorRule {
         }
     }, ALL(4, "Todas") {
         @Override
-        public void extract(String val) {
+        public void extract(String uf, String county) {
             try {
                 var nationalHolidays = NationalHolidays.getNationalHolidays();
                 List<String[]> holidays = new ArrayList<>();
@@ -73,14 +73,14 @@ public enum TypeExtraction implements ExtractorRule {
         }
     }, UNITY(5, "Por Unidade") {
         @Override
-        public void extract(String val) {
+        public void extract(String uf, String county) {
             try {
-                var nationalHolidays = NationalHolidays.getNationalHolidays();
+                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays(uf, county);
                 List<String[]> holidays = new ArrayList<>();
-                nationalHolidays.forEach(holiday -> {
+                municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "todos-nacionais-por-unidade.csv");
+                toCsv(holidays, "municipal-holidays.csv");
             } catch (Exception e) {
 
             }

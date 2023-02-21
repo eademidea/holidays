@@ -6,7 +6,7 @@ package holidays.model.extraction;
  */
 public interface ExtractorRule {
 
-    public void extract(String val);
+    public void extract(String uf, String county);
 
 
 }

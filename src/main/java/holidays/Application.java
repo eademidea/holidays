@@ -2,7 +2,6 @@ package holidays;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import holidays.model.UF;
 import holidays.model.extraction.TypeExtraction;
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,7 +17,6 @@ import java.util.List;
 
 import static holidays.model.UF.getFormatedUf;
 import static holidays.model.UF.ufExists;
-import static org.apache.commons.lang3.StringUtils.stripAccents;
 
 /**
  * @author Conrado Jardim de Oliveira
@@ -62,21 +60,31 @@ public class Application {
                         allUf.setSelected(false);
                         especific.setSelected(false);
                         national.setSelected(false);
-                        JFileChooser fileChooser = new JFileChooser();
-                        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                        fileChooser.showOpenDialog(null);
-                        File f = fileChooser.getSelectedFile();
-                        System.out.println(f.getName());
+                        File file = getFileChosed();
                         try {
-                            Reader reader = Files.newBufferedReader(Paths.get(f.getPath()));
-                            CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
-                            List<String[]> pessoas = csvReader.readAll();
+                            Reader fileRead = Files.newBufferedReader(Paths.get(file.getPath()));
+                            CSVReader csvReader = new CSVReaderBuilder(fileRead).build();
+                            List<String[]> lines = csvReader.readAll();
+                            for (String[] line : lines) {
+
+                                // Adcionar em uma lista pra cada unidade.
+                                // Criar um método para receber dois parametros uf e municipio.
+                                TypeExtraction.ESPECIFIC_UF.extract(getFormatedUf(line[0]), StringUtils.stripAccents(line[1]).toUpperCase());
+                            }
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
 //                        if (confirm == 0) {
 //                            TypeExtraction.UNITY.extract(null);
 //                        }
+                    }
+
+                    private File getFileChosed() {
+                        JFileChooser fileChooser = new JFileChooser();
+                        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                        fileChooser.showOpenDialog(null);
+                        File file = fileChooser.getSelectedFile();
+                        return file;
                     }
                 }
         );
@@ -93,7 +101,7 @@ public class Application {
                         unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados nacionais?");
                         if (confirm == 0) {
-                            TypeExtraction.NATIONAL.extract(null);
+                            TypeExtraction.NATIONAL.extract(null, null);
                         }
                     }
                 }
@@ -111,7 +119,7 @@ public class Application {
                         unity.setSelected(false);
                         var uf = JOptionPane.showInputDialog("Informe o UF que deseja extrair (Exemplo: MG): ");
                         if (ufExists(uf)) {
-                            TypeExtraction.ESPECIFIC_UF.extract(getFormatedUf(uf));
+                            TypeExtraction.ESPECIFIC_UF.extract(getFormatedUf(uf), null);
                         } else {
                             JOptionPane.showMessageDialog(null, "UF Informada não existe...");
                         }
@@ -132,7 +140,7 @@ public class Application {
                         unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados municipais?");
                         if (confirm == 0) {
-                            TypeExtraction.ALL_UF.extract(null);
+                            TypeExtraction.ALL_UF.extract(null, null);
                         }
                     }
                 }
@@ -151,7 +159,7 @@ public class Application {
                         var confirm = JOptionPane.showConfirmDialog(null
                                 , "Deseja realmente extrair todos feriados nacionais e municipais?");
                         if (confirm == 0) {
-                            TypeExtraction.ALL.extract(null);
+                            TypeExtraction.ALL.extract(null, null);
                         }
                     }
                 }

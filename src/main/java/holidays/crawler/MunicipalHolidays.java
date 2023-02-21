@@ -35,12 +35,48 @@ public class MunicipalHolidays  {
         return element.getAttribute("innerText").split("\t");
     }
 
-    public static List<MunicipalHoliday> getMunicipalHolidays(String uf) throws InterruptedException {
+    public static List<MunicipalHoliday> getUfHolidays(String uf) throws InterruptedException {
         List<MunicipalHoliday> holidays = new ArrayList<>();
         driver.get(FEBRABAN_URL.concat("Municipais/Listar"));
         var element = driver.findElement(By.id("Uf"));
         Select select = new Select(element);
         select.selectByValue(uf);
+        new Thread().sleep(1000);
+        driver.findElement(By.className("botao")).click();
+
+        List<WebElement> weekDays = driver.findElements(By.tagName("tr"));
+        status.put(weekDays.size(), 0);
+
+        weekDays.forEach(day -> {
+            String[] weekDay = getWeekDay(day);
+            if (!weekDay[0].equals("Data")) {
+                holidays.add(new MunicipalHoliday(weekDay[0], weekDay[1], weekDay[2],weekDay[3]));
+            }
+            counter += 1;
+            status.put(weekDays.size(), counter);
+            System.out.println(status.toString());
+        });
+
+        driver.close();
+
+        if (holidays.isEmpty()) {
+            log.info("Lista de feriados indisponível no momento.");
+        }
+
+        return holidays;
+    }
+
+    public static List<MunicipalHoliday> getMunicipalHolidays(String uf, String county) throws InterruptedException {
+        List<MunicipalHoliday> holidays = new ArrayList<>();
+        driver.get(FEBRABAN_URL.concat("Municipais/Listar"));
+        var elementUf = driver.findElement(By.id("Uf"));
+        Select selectUf = new Select(elementUf);
+        selectUf.selectByValue(uf);
+
+        var elementCounty  = driver.findElement(By.id("Municipio"));
+        Select selectCounty = new Select(elementCounty);
+        selectCounty.selectByValue(county);
+
         new Thread().sleep(1000);
         driver.findElement(By.className("botao")).click();
 
