@@ -21,17 +21,26 @@ public class MunicipalHoliday {
 
     private String holidayType;
 
+    private String unity;
+
 
     public String[] getHolidayObject() {
-        return new String[]{getState().getLabel(), getUf(), getCounty(), getFormatedDate(), getDayWeek(), getHoliday(), getHolidayType()};
+        return new String[]{getState().getLabel(), getUf(), getCounty(), getFormatedDate(), getDayWeek(), getHoliday(), getHolidayType(), getUnity()};
     }
-
 
     public MunicipalHoliday(String date, String uf, String county, String holidayType) {
         this.date = date;
         this.uf = uf;
         this.county = county;
         this.holidayType = holidayType;
+    }
+
+    public MunicipalHoliday(String date, String uf, String county, String holidayType, String unity) {
+        this.date = date;
+        this.uf = uf;
+        this.county = county;
+        this.holidayType = holidayType;
+        this.unity = unity;
     }
 
     public UF getState() {
@@ -63,6 +72,10 @@ public class MunicipalHoliday {
 
     public String getUf() {
         return uf;
+    }
+
+    public String getUnity() {
+        return unity;
     }
 
     @Override
