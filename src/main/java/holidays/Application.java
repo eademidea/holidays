@@ -3,7 +3,6 @@ package holidays;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import holidays.model.extraction.TypeExtraction;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

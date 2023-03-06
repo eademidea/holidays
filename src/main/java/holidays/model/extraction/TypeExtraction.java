@@ -26,29 +26,18 @@ public enum TypeExtraction implements ExtractorRule {
                 });
                 toCsv(holidays, "feriados-nacionais.csv");
             } catch (Exception e) {
-
+                throw new RuntimeException(e);
             }
         }
 
         @Override
         public void extract(String uf) {
-
         }
 
         @Override
         public void extract(List<String[]> lines) {
-
         }
     }, ESPECIFIC_UF(2, "UF Específica") {
-        @Override
-        public void extract() {
-
-        }
-
-        @Override
-        public void extract(String uf) {
-
-        }
 
         @Override
         public void extract(List<String[]> lines) {
@@ -60,9 +49,20 @@ public enum TypeExtraction implements ExtractorRule {
                 });
                 toCsv(holidays, "estado-holidays.csv");
             } catch (Exception e) {
-
+                throw new RuntimeException(e);
             }
         }
+
+        @Override
+        public void extract() {
+            // Não será necessário a sua implementação até o momento.
+        }
+
+        @Override
+        public void extract(String uf) {
+            // Não será necessário a sua implementação até o momento.
+        }
+
     }, ALL_UF(3, "Todas UF's") {
         @Override
         public void extract() {
@@ -74,30 +74,20 @@ public enum TypeExtraction implements ExtractorRule {
                 });
                 toCsv(holidays, "feriados-nacionais.csv");
             } catch (Exception e) {
-
+                throw new RuntimeException(e);
             }
         }
 
         @Override
         public void extract(String uf) {
-            
+            // Não será necessário a sua implementação até o momento.
         }
 
         @Override
         public void extract(List<String[]> lines) {
-
+            // Não será necessário a sua implementação até o momento.
         }
     }, UNITY(5, "Por Unidade") {
-        @Override
-        public void extract() {
-
-        }
-
-        @Override
-        public void extract(String uf) {
-
-        }
-
         @Override
         public void extract(List<String[]> lines) {
             try {
@@ -108,9 +98,20 @@ public enum TypeExtraction implements ExtractorRule {
                 });
                 toCsv(holidays, "municipal-holidays.csv");
             } catch (Exception e) {
-
+                throw new RuntimeException(e);
             }
         }
+
+        @Override
+        public void extract() {
+            // Não será necessário a sua implementação até o momento.
+        }
+
+        @Override
+        public void extract(String uf) {
+            // Não será necessário a sua implementação até o momento.
+        }
+
     };
 
     public String getLabel() {
