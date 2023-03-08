@@ -2,6 +2,7 @@ package holidays.crawler;
 
 import holidays.model.MunicipalHoliday;
 import holidays.model.NationalHoliday;
+import holidays.model.UF;
 import holidays.model.WeekDays;
 import holidays.model.extraction.TypeExtraction;
 import org.apache.commons.lang3.StringUtils;
@@ -39,12 +40,12 @@ public class MunicipalHolidays {
         return element.getAttribute("innerText").split("\t");
     }
 
-    public static List<MunicipalHoliday> getAllUfHolidays() throws InterruptedException {
+    public static List<MunicipalHoliday> getUfHolidays(UF uf) throws InterruptedException {
         List<MunicipalHoliday> holidays = new ArrayList<>();
         driver.get(FEBRABAN_URL.concat("Municipais/Listar"));
         var element = driver.findElement(By.id("Uf"));
         Select select = new Select(element);
-        select.selectByValue(uf);
+        select.selectByValue(uf.getSigla());
         new Thread().sleep(1000);
         driver.findElement(By.className("botao")).click();
 

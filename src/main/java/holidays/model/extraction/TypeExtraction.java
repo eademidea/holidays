@@ -37,16 +37,14 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(List<String[]> lines) {
         }
-    },ALL_UF(1, "Todos feriados municipais") {
+    }, SPECIFIC(1, "Todos feriados municipais") {
         @Override
         public void extract() {
             try {
-                var nationalHolidays = MunicipalHolidays.getAllUfHolidays();
-                List<String[]> holidays = new ArrayList<>();
-                nationalHolidays.forEach(holiday -> {
-                    holidays.add(holiday.getHolidayObject());
-                });
-                toCsv(holidays, "feriados-nacionais.csv");
+
+
+
+
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -59,8 +57,7 @@ public enum TypeExtraction implements ExtractorRule {
         @Override
         public void extract(List<String[]> lines) {
         }
-    }
-    , UNITY(5, "Por Unidade") {
+    }, UNITY(5, "Por Unidade") {
         @Override
         public void extract(List<String[]> lines) {
             try {

@@ -22,7 +22,8 @@ public class Application {
 
     public static final String VERSION = "Holidays - 0.0.1";
     public static final String MESSAGE_OPTIONS = "Selecione uma das opções a seguir.";
-    private static JRadioButton allUf = new JRadioButton(TypeExtraction.ALL_UF.getLabel(), false);
+
+    private static JRadioButton specific = new JRadioButton(TypeExtraction.SPECIFIC.getLabel(), false);
     private static JRadioButton national = new JRadioButton(TypeExtraction.NATIONAL.getLabel(), false);
     private static JRadioButton unity = new JRadioButton(TypeExtraction.UNITY.getLabel(), false);
 
@@ -31,7 +32,7 @@ public class Application {
 
         actionToExtractUnity();
 
-        actionToExtractAllUf();
+        actionToExtractSpecificUf();
 
         actionToExtractNational();
 
@@ -44,7 +45,7 @@ public class Application {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        allUf.setSelected(false);
+                        specific.setSelected(false);
                         national.setSelected(false);
                         File file = getFileChosed();
                         try {
@@ -55,7 +56,7 @@ public class Application {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-                        JOptionPane.showMessageDialog(null,"Extração concluída...");
+                        JOptionPane.showMessageDialog(null, "Extração concluída...");
                     }
 
                     private File getFileChosed() {
@@ -74,20 +75,20 @@ public class Application {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        allUf.setSelected(false);
+                        specific.setSelected(false);
                         unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados nacionais?");
                         if (confirm == 0) {
                             TypeExtraction.NATIONAL.extract();
-                            JOptionPane.showMessageDialog(null,"Extração concluída...");
+                            JOptionPane.showMessageDialog(null, "Extração concluída...");
                         }
                     }
                 }
         );
     }
 
-    private static void actionToExtractAllUf() {
-        allUf.addActionListener(
+    private static void actionToExtractSpecificUf() {
+        specific.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -95,8 +96,8 @@ public class Application {
                         unity.setSelected(false);
                         var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados municipais?");
                         if (confirm == 0) {
-                            TypeExtraction.ALL_UF.extract();
-                            JOptionPane.showMessageDialog(null,"Extração concluída...");
+                            TypeExtraction.SPECIFIC.extract();
+                            JOptionPane.showMessageDialog(null, "Extração concluída...");
                         }
                     }
                 }
@@ -109,7 +110,7 @@ public class Application {
      */
     private static void initFrame() {
         JFrame frame = new JFrame(VERSION);
-        frame.setBounds(50, 50,700, 150);
+        frame.setBounds(50, 50, 700, 150);
         frame.setResizable(false);
         frame.add(getPanelRadiosButton());
         frame.add(getJPanelLabelOptions());
@@ -119,7 +120,7 @@ public class Application {
     private static JPanel getPanelRadiosButton() {
         JPanel panel = new JPanel();
         panel.setBounds(50, 50, 600, 30);
-        panel.add(allUf);
+        panel.add(specific);
         panel.add(national);
         panel.add(unity);
         return panel;
