@@ -39,7 +39,7 @@ public class MunicipalHolidays {
         return element.getAttribute("innerText").split("\t");
     }
 
-    public static List<MunicipalHoliday> getUfHolidays(String uf) throws InterruptedException {
+    public static List<MunicipalHoliday> getAllUfHolidays() throws InterruptedException {
         List<MunicipalHoliday> holidays = new ArrayList<>();
         driver.get(FEBRABAN_URL.concat("Municipais/Listar"));
         var element = driver.findElement(By.id("Uf"));
