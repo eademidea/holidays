@@ -31,30 +31,36 @@ public enum TypeExtraction implements ExtractorRule {
         }
 
         @Override
+        @Deprecated
         public void extract(String uf) {
         }
 
         @Override
+        @Deprecated
         public void extract(List<String[]> lines) {
         }
     }, SPECIFIC(1, "Todos feriados municipais") {
         @Override
+        @Deprecated
         public void extract() {
+        }
+
+        @Override
+        public void extract(String uf) {
             try {
-
-
-
-
+                var municipalHolidays = MunicipalHolidays.getUfHolidays(uf);
+                List<String[]> holidays = new ArrayList<>();
+                municipalHolidays.forEach(holiday -> {
+                    holidays.add(holiday.getHolidayObject());
+                });
+                toCsv(holidays, "feriados-uf.csv");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
         @Override
-        public void extract(String uf) {
-        }
-
-        @Override
+        @Deprecated
         public void extract(List<String[]> lines) {
         }
     }, UNITY(5, "Por Unidade") {
@@ -66,20 +72,20 @@ public enum TypeExtraction implements ExtractorRule {
                 municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "estado-holidays.csv");
+                toCsv(holidays, "feriados-unidade.csv");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
         @Override
+        @Deprecated
         public void extract() {
-            // Não será necessário a sua implementação até o momento.
         }
 
         @Override
+        @Deprecated
         public void extract(String uf) {
-            // Não será necessário a sua implementação até o momento.
         }
 
     };

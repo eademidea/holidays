@@ -14,6 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static holidays.model.UF.getFormatedUf;
+import static holidays.model.UF.ufExists;
+
 /**
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
@@ -57,6 +60,7 @@ public class Application {
                             throw new RuntimeException(ex);
                         }
                         JOptionPane.showMessageDialog(null, "Extração concluída...");
+                        System.exit(0);
                     }
 
                     private File getFileChosed() {
@@ -82,6 +86,7 @@ public class Application {
                             TypeExtraction.NATIONAL.extract();
                             JOptionPane.showMessageDialog(null, "Extração concluída...");
                         }
+                        System.exit(0);
                     }
                 }
         );
@@ -94,11 +99,14 @@ public class Application {
                     public void actionPerformed(ActionEvent e) {
                         national.setSelected(false);
                         unity.setSelected(false);
-                        var confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente extrair todos feriados municipais?");
-                        if (confirm == 0) {
-                            TypeExtraction.SPECIFIC.extract();
+                        var uf = JOptionPane.showInputDialog("Informe o UF que deseja extrair (Exemplo: MG): ");
+                        if (ufExists(uf)) {
+                            TypeExtraction.SPECIFIC.extract(getFormatedUf(uf));
                             JOptionPane.showMessageDialog(null, "Extração concluída...");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "UF Informada não existe...");
                         }
+                        System.exit(0);
                     }
                 }
         );
