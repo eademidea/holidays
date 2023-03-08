@@ -15,7 +15,7 @@ import static holidays.csv.CsvMaker.toCsv;
  */
 public enum TypeExtraction implements ExtractorRule {
 
-    NATIONAL(1, "Feriados Nacionais") {
+    NATIONAL(1, "Todos feriados nacionais") {
         @Override
         public void extract() {
             try {
@@ -31,61 +31,37 @@ public enum TypeExtraction implements ExtractorRule {
         }
 
         @Override
+        @Deprecated
         public void extract(String uf) {
         }
 
         @Override
+        @Deprecated
         public void extract(List<String[]> lines) {
         }
-    }, ESPECIFIC_UF(2, "UF Específica") {
+    }, SPECIFIC(1, "Todos feriados municipais") {
+        @Override
+        @Deprecated
+        public void extract() {
+        }
 
         @Override
-        public void extract(List<String[]> lines) {
+        public void extract(String uf) {
             try {
-                var municipalHolidays = MunicipalHolidays.getMunicipalHolidays(lines);
+                var municipalHolidays = MunicipalHolidays.getUfHolidays(uf);
                 List<String[]> holidays = new ArrayList<>();
                 municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "estado-holidays.csv");
+                toCsv(holidays, "feriados-uf.csv");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
         @Override
-        public void extract() {
-            // Não será necessário a sua implementação até o momento.
-        }
-
-        @Override
-        public void extract(String uf) {
-            // Não será necessário a sua implementação até o momento.
-        }
-
-    }, ALL_UF(3, "Todas UF's") {
-        @Override
-        public void extract() {
-            try {
-                var nationalHolidays = NationalHolidays.getNationalHolidays();
-                List<String[]> holidays = new ArrayList<>();
-                nationalHolidays.forEach(holiday -> {
-                    holidays.add(holiday.getHolidayObject());
-                });
-                toCsv(holidays, "feriados-nacionais.csv");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        @Override
-        public void extract(String uf) {
-            // Não será necessário a sua implementação até o momento.
-        }
-
-        @Override
+        @Deprecated
         public void extract(List<String[]> lines) {
-            // Não será necessário a sua implementação até o momento.
         }
     }, UNITY(5, "Por Unidade") {
         @Override
@@ -96,20 +72,20 @@ public enum TypeExtraction implements ExtractorRule {
                 municipalHolidays.forEach(holiday -> {
                     holidays.add(holiday.getHolidayObject());
                 });
-                toCsv(holidays, "municipal-holidays.csv");
+                toCsv(holidays, "feriados-unidade.csv");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
 
         @Override
+        @Deprecated
         public void extract() {
-            // Não será necessário a sua implementação até o momento.
         }
 
         @Override
+        @Deprecated
         public void extract(String uf) {
-            // Não será necessário a sua implementação até o momento.
         }
 
     };

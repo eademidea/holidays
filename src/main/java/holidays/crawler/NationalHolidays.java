@@ -3,9 +3,7 @@ package holidays.crawler;
 import holidays.model.NationalHoliday;
 import holidays.model.WeekDays;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +13,11 @@ import java.util.logging.Logger;
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
  */
-public class NationalHolidays {
-
+public class NationalHolidays extends ChromeUtils {
 
     private static final String FEBRABAN_URL = "https://feriadosbancarios.febraban.org.br/";
 
     private static Logger log = Logger.getLogger(NationalHolidays.class.getName());
-
-    static WebDriver driver = new ChromeDriver();
 
     public static String[] getWeekDay(WebElement element) {
         return element.getAttribute("innerText").split("\t");

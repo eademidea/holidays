@@ -1,14 +1,9 @@
 package holidays.crawler;
 
 import holidays.model.MunicipalHoliday;
-import holidays.model.NationalHoliday;
-import holidays.model.WeekDays;
-import holidays.model.extraction.TypeExtraction;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
@@ -23,13 +18,11 @@ import static holidays.model.UF.getFormatedUf;
  * @author Conrado Jardim de Oliveira
  * @version 0.0.1
  */
-public class MunicipalHolidays {
+public class MunicipalHolidays extends ChromeUtils {
 
     private static final String FEBRABAN_URL = "https://feriadosbancarios.febraban.org.br/";
 
     private static Logger log = Logger.getLogger(MunicipalHolidays.class.getName());
-
-    static WebDriver driver = new ChromeDriver();
 
     private static Map<Integer, Integer> status = new HashMap<>();
 
