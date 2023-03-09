@@ -28,5 +28,11 @@ Feriados por unidade: você pode extrair todos feriados nacionais e municipais d
 
 Exemplo: uma empresa tem duas unidades de negócio em municipios diferentes. Será possível extrair os feriados do municipio da unidade e feriados nacionais.
 
+Porém será necessário informar um csv como print abaixo:
+
+![Documento](https://uploaddeimagens.com.br/images/004/384/032/original/Screenshot_from_2023-03-09_18-18-59.png?1678396811)
+
+UF Sigla / Estado / codigo que define unidade
+
 Observação:
 O resultado sempre será um arquivo CSV.
