@@ -1,24 +1,24 @@
 # Holidays
 
-Tecnologias usadas:
+### ☕ Tecnologias usadas:
 
 Java
 Maven
 jUnit
 ChromeDrive
 
-Propósito do software:
+### Propósito do software:
 
 Buscar todos feriados, nacionais e municipais do site febraban: https://feriadosbancarios.febraban.org.br/ e gravar em um CSV.
 
 Gerar o "Jar":
 maven package
 
-Executar o programa:
+### Executar o programa:
 
 java -jar nome_do_arquivo_gerado.jar
 
-Opções de extração do feriado:
+### Opções de extração do feriado:
 
 Todos os feriados municipais: nesta modalidade você pode extrair todos os feriados de todos municipios da "UF" digitada.
 
